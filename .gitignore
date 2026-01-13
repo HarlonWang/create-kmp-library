@@ -10,7 +10,3 @@ package-lock.json
 .idea/*
 
 .DS_Store
-
-demo-cmp/*
-
-demo-kmp/*
