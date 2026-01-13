@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
         0B6CEB6B2C00000100000001 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6CEB6B2C00000100000002 /* AppDelegate.swift */; };
-        0B6CEB6B2C00000100000003 /* __FRAMEWORK_NAME__.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B6CEB6B2C00000100000004 /* __FRAMEWORK_NAME__.xcframework */; };
-        0B6CEB6B2C00000100000005 /* __FRAMEWORK_NAME__.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0B6CEB6B2C00000100000004 /* __FRAMEWORK_NAME__.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -19,7 +17,6 @@
             dstPath = "";
             dstSubfolderSpec = 10;
             files = (
-                0B6CEB6B2C00000100000005 /* __FRAMEWORK_NAME__.xcframework in Embed Frameworks */,
             );
             name = "Embed Frameworks";
             runOnlyForDeploymentPostprocessing = 0;
@@ -30,7 +27,6 @@
         0B6CEB6B2C00000100000008 /* iosApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
         0B6CEB6B2C00000100000002 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
         0B6CEB6B2C00000100000009 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-        0B6CEB6B2C00000100000004 /* __FRAMEWORK_NAME__.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = __FRAMEWORK_NAME__.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,7 +34,6 @@
             isa = PBXFrameworksBuildPhase;
             buildActionMask = 2147483647;
             files = (
-                0B6CEB6B2C00000100000003 /* __FRAMEWORK_NAME__.xcframework in Frameworks */,
             );
             runOnlyForDeploymentPostprocessing = 0;
         };
@@ -66,7 +61,6 @@
         0B6CEB6B2C0000010000000D /* Frameworks */ = {
             isa = PBXGroup;
             children = (
-                0B6CEB6B2C00000100000004 /* __FRAMEWORK_NAME__.xcframework */,
             );
             path = Frameworks;
             sourceTree = "<group>";
@@ -153,10 +147,12 @@
             inputPaths = (
             );
             outputPaths = (
+                "$(TARGET_BUILD_DIR)/$(FRAMEWORKS_FOLDER_PATH)/__FRAMEWORK_NAME__.framework",
             );
+            name = "Build Kotlin Framework";
             runOnlyForDeploymentPostprocessing = 0;
             shellPath = /bin/sh;
-            shellScript = "bash \"$SRCROOT/scripts/build_xcframework.sh\"\\n";
+            shellScript = "bash \"$SRCROOT/scripts/build_framework.sh\"";
         };
 /* End PBXShellScriptBuildPhase section */
 
@@ -293,9 +289,10 @@
                 CURRENT_PROJECT_VERSION = 1;
                 DEVELOPMENT_TEAM = "";
                 ENABLE_USER_SCRIPT_SANDBOXING = NO;
+                "EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
                 FRAMEWORK_SEARCH_PATHS = (
                     "$(inherited)",
-                    "$(PROJECT_DIR)/Frameworks",
+                    "$(TARGET_BUILD_DIR)/$(FRAMEWORKS_FOLDER_PATH)",
                 );
                 INFOPLIST_FILE = iosApp/Info.plist;
                 IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -304,6 +301,10 @@
                     "@executable_path/Frameworks",
                 );
                 MARKETING_VERSION = 1.0;
+                OTHER_LDFLAGS = (
+                    "$(inherited)",
+                    "-framework __FRAMEWORK_NAME__",
+                );
                 PRODUCT_BUNDLE_IDENTIFIER = "__IOS_BUNDLE_ID__";
                 PRODUCT_NAME = iosApp;
                 SWIFT_VERSION = 5.0;
@@ -319,9 +320,10 @@
                 CURRENT_PROJECT_VERSION = 1;
                 DEVELOPMENT_TEAM = "";
                 ENABLE_USER_SCRIPT_SANDBOXING = NO;
+                "EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
                 FRAMEWORK_SEARCH_PATHS = (
                     "$(inherited)",
-                    "$(PROJECT_DIR)/Frameworks",
+                    "$(TARGET_BUILD_DIR)/$(FRAMEWORKS_FOLDER_PATH)",
                 );
                 INFOPLIST_FILE = iosApp/Info.plist;
                 IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -330,6 +332,10 @@
                     "@executable_path/Frameworks",
                 );
                 MARKETING_VERSION = 1.0;
+                OTHER_LDFLAGS = (
+                    "$(inherited)",
+                    "-framework __FRAMEWORK_NAME__",
+                );
                 PRODUCT_BUNDLE_IDENTIFIER = "__IOS_BUNDLE_ID__";
                 PRODUCT_NAME = iosApp;
                 SWIFT_VERSION = 5.0;

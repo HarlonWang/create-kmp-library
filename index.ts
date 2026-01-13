@@ -58,6 +58,31 @@ function toFrameworkName(input: string): string {
     return camel.length > 0 ? camel : 'Shared'
 }
 
+function toIOSBundleIdSegment(input: string): string {
+    const normalized = input
+        .trim()
+        .replace(/_/g, '-')
+        .replace(/[^A-Za-z0-9-]+/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-+/, '')
+        .replace(/-+$/, '')
+        .replace(/^[^A-Za-z0-9]+/, '')
+
+    return normalized.length > 0 ? normalized : 'app'
+}
+
+function toIOSBundleIdPrefix(groupId: string, artifactId: string): string {
+    const groupPart = groupId
+        .split('.')
+        .map((segment) => toIOSBundleIdSegment(segment))
+        .filter(Boolean)
+        .join('.')
+
+    const artifactPart = toIOSBundleIdSegment(artifactId)
+
+    return [groupPart, artifactPart].filter(Boolean).join('.')
+}
+
 function tryInjectPromptsFromEnv(): void {
     const raw = process.env.CREATE_KMP_LIBRARY_INJECT
     if (!raw) {
@@ -230,7 +255,9 @@ async function init(): Promise<void> {
 
     const frameworkName = toFrameworkName(artifactId)
     const androidAppId = `${packageName}.androidapp`
-    const iosBundleId = `${packageName}.iosapp`
+    const iosBundleIdPrefix = toIOSBundleIdPrefix(groupId, artifactId)
+    const iosBundleId = `${iosBundleIdPrefix}.iosapp`
+    const iosFrameworkBundleId = `${iosBundleIdPrefix}.${frameworkName}`
 
     applyReplacementsInDir(root, {
         '__PROJECT_NAME__': projectName,
@@ -242,6 +269,7 @@ async function init(): Promise<void> {
         '__FRAMEWORK_NAME__': frameworkName,
         '__ANDROID_APPLICATION_ID__': androidAppId,
         '__IOS_BUNDLE_ID__': iosBundleId,
+        '__IOS_FRAMEWORK_BUNDLE_ID__': iosFrameworkBundleId,
         '__EXTRA_KOTLIN_TARGETS__': toExtraKotlinTargetsSnippet(needsJvm),
     })
 

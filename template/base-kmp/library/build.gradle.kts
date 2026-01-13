@@ -40,6 +40,7 @@ kotlin {
     targets.withType(KotlinNativeTarget::class.java).configureEach {
         binaries.framework {
             baseName = frameworkName
+            binaryOption("bundleId", "__IOS_FRAMEWORK_BUNDLE_ID__")
             xcframework.add(this)
         }
     }
