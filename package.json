@@ -1,0 +1,29 @@
+{
+    "name": "create-kmp-library",
+    "version": "0.1.0",
+    "description": "Scaffold a Kotlin Multiplatform library project (KMP/CMP) with runnable Android & iOS apps.",
+    "bin": {
+        "create-kmp-library": "out.js"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    },
+    "scripts": {
+        "build": "node esbuild_config.mjs",
+        "dev": "npm run build && node out.js"
+    },
+    "files": [
+        "out.js",
+        "template"
+    ],
+    "license": "MIT",
+    "dependencies": {
+        "kolorist": "^1.6.0",
+        "prompts": "^2.4.2"
+    },
+    "devDependencies": {
+        "@types/node": "^22.13.10",
+        "esbuild": "^0.25.9",
+        "typescript": "^5.7.3"
+    }
+}

@@ -1,0 +1,16 @@
+out.js
+
+# Dependency directories
+node_modules/
+
+package-lock.json
+
+# For WebStorm
+.idea
+.idea/*
+
+.DS_Store
+
+demo-cmp/*
+
+demo-kmp/*
