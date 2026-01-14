@@ -278,9 +278,6 @@ async function init(): Promise<void> {
         fs.chmodSync(gradlewPath, 0o755)
     }
 
-    const iosFrameworksDir = path.resolve(root, 'iosApp', 'Frameworks')
-    fs.mkdirSync(iosFrameworksDir, { recursive: true })
-
     const userAgent = process.env.npm_config_user_agent ?? ''
     const packageManager = /pnpm/.test(userAgent) ? 'pnpm' : /yarn/.test(userAgent) ? 'yarn' : 'npm'
 

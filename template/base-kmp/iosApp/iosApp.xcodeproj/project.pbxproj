@@ -52,7 +52,6 @@
             children = (
                 995164853EA3993193B95917 /* Configuration */,
                 F584CF6A856159BE8A9D4B6B /* iosApp */,
-                0B6CEB6B2C00000100000021 /* Frameworks */,
                 0AB826A394E372549F7760E1 /* Products */,
             );
             sourceTree = "<group>";
@@ -63,13 +62,6 @@
                 4AFEA63EE4E382DCEE9C7342 /* iosApp.app */,
             );
             name = Products;
-            sourceTree = "<group>";
-        };
-        0B6CEB6B2C00000100000021 /* Frameworks */ = {
-            isa = PBXGroup;
-            children = (
-            );
-            path = Frameworks;
             sourceTree = "<group>";
         };
 /* End PBXGroup section */
