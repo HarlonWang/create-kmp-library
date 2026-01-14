@@ -2,12 +2,16 @@
 
 set -euo pipefail
 
+if [ "YES" = "${OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED:-NO}" ]; then
+    echo "Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \"YES\""
+    exit 0
+fi
+
 PROJECT_DIR="$SRCROOT"
 ROOT_DIR="$PROJECT_DIR/.."
 FRAMEWORK_NAME="__FRAMEWORK_NAME__"
 
 TARGET_BUILD_DIR="${TARGET_BUILD_DIR:?TARGET_BUILD_DIR not set}"
-FRAMEWORKS_FOLDER_PATH="${FRAMEWORKS_FOLDER_PATH:?FRAMEWORKS_FOLDER_PATH not set}"
 
 SDK_NAME_VALUE="${SDK_NAME:-}"
 CONFIGURATION_NAME="${CONFIGURATION:-Debug}"
@@ -42,17 +46,8 @@ if [ ! -d "$SRC_FRAMEWORK" ]; then
     exit 1
 fi
 
-DEST_DIR="$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/$FRAMEWORK_NAME.framework"
-DEST_PARENT_DIR="$(dirname "$DEST_DIR")"
-mkdir -p "$DEST_PARENT_DIR"
+DEST_DIR="$TARGET_BUILD_DIR/$FRAMEWORK_NAME.framework"
 rm -rf "$DEST_DIR"
 cp -R "$SRC_FRAMEWORK" "$DEST_DIR"
-
-if [ "${CODE_SIGNING_ALLOWED:-NO}" = "YES" ] && [ -n "${EXPANDED_CODE_SIGN_IDENTITY:-}" ]; then
-    if ! echo "$SDK_NAME_VALUE" | grep -qi "simulator"; then
-        echo "[KMP] Codesigning framework: $FRAMEWORK_NAME"
-        /usr/bin/codesign --force --sign "$EXPANDED_CODE_SIGN_IDENTITY" --preserve-metadata=identifier,entitlements,flags --timestamp=none "$DEST_DIR"
-    fi
-fi
 
 echo "[KMP] Framework ready: $DEST_DIR"
