@@ -1,6 +1,6 @@
 # create-kmp-library
 
-通过 `npm create kmp-library` 快速创建 Kotlin Multiplatform library 工程（支持 KMP / CMP），并默认包含可运行的 Android / iOS 宿主 App。
+通过 `npm create kmp-library` 快速创建 Kotlin Multiplatform library 模板工程（支持 KMP / CMP），并默认包含可运行的 Android / iOS 宿主 App。
 
 ## 效果
 
