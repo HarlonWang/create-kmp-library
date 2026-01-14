@@ -2,16 +2,22 @@
 
 set -euo pipefail
 
-if [ "YES" = "${OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED:-NO}" ]; then
-    echo "Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \"YES\""
-    exit 0
-fi
-
 PROJECT_DIR="$SRCROOT"
 ROOT_DIR="$PROJECT_DIR/.."
 FRAMEWORK_NAME="__FRAMEWORK_NAME__"
 
 TARGET_BUILD_DIR="${TARGET_BUILD_DIR:?TARGET_BUILD_DIR not set}"
+DEST_DIR="$TARGET_BUILD_DIR/$FRAMEWORK_NAME.framework"
+
+if [ "YES" = "${OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED:-NO}" ]; then
+    if [ -d "$DEST_DIR" ]; then
+        echo "Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \"YES\""
+        exit 0
+    fi
+
+    echo "[KMP] OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED=YES but framework is missing at: $DEST_DIR"
+    echo "[KMP] Falling back to building framework via Gradle."
+fi
 
 SDK_NAME_VALUE="${SDK_NAME:-}"
 CONFIGURATION_NAME="${CONFIGURATION:-Debug}"
@@ -46,7 +52,6 @@ if [ ! -d "$SRC_FRAMEWORK" ]; then
     exit 1
 fi
 
-DEST_DIR="$TARGET_BUILD_DIR/$FRAMEWORK_NAME.framework"
 rm -rf "$DEST_DIR"
 cp -R "$SRC_FRAMEWORK" "$DEST_DIR"
 
