@@ -8,7 +8,6 @@ import { bold, green, red } from 'kolorist'
 
 import { postOrderDirectoryTraverse } from './utils/directoryTraverse'
 import renderTemplate from './utils/renderTemplate'
-import getCommand from './utils/getCommand'
 import { applyReplacementsInDir, movePackagePlaceholderDirs } from './utils/replacements'
 
 function isValidKotlinPackageName(packageName: string): boolean {
@@ -278,9 +277,6 @@ async function init(): Promise<void> {
         fs.chmodSync(gradlewPath, 0o755)
     }
 
-    const userAgent = process.env.npm_config_user_agent ?? ''
-    const packageManager = /pnpm/.test(userAgent) ? 'pnpm' : /yarn/.test(userAgent) ? 'yarn' : 'npm'
-
     console.log(`\n完成！项目已生成在 ${root}\n`)
     console.log('下一步：')
     console.log()
@@ -294,8 +290,6 @@ async function init(): Promise<void> {
     console.log()
     console.log('运行 iOS（模拟器或真机）：')
     console.log(`  ${bold(green('open iosApp/iosApp.xcodeproj'))}`)
-    console.log()
-    console.log(`如需安装 Node 依赖：${bold(green(getCommand(packageManager, 'install')))}`)
     console.log()
 }
 
