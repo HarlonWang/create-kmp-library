@@ -28,10 +28,12 @@ kotlin {
         compilations.configureEach {
             compileTaskProvider.configure {
                 compilerOptions {
-                    jvmTarget.set(JvmTarget.JVM_11)
+                    jvmTarget.set(JvmTarget.JVM_17)
                 }
             }
         }
+
+        androidResources.enable = true
     }
 
     iosArm64()
@@ -54,6 +56,7 @@ kotlin {
             implementation(compose.foundation)
             implementation(compose.material3)
             implementation(compose.ui)
+            implementation(compose.components.resources)
         }
 
         commonTest.dependencies {
