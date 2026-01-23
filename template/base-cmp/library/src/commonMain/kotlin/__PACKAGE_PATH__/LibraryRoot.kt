@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import __GROUP_ID__.library.generated.resources.Res
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun LibraryRoot() {
@@ -16,6 +18,6 @@ fun LibraryRoot() {
             .fillMaxSize()
             .windowInsetsPadding(WindowInsets.safeDrawing)
     ) {
-        Text(Greeting().greet())
+        Text("${Greeting().greet()} - ${stringResource(Res.string.library_title)}")
     }
 }
