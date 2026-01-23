@@ -19,6 +19,7 @@ npm create kmp-library
 ## npm 发布
 
 ```sh
+npm run build
 npm login --registry https://registry.npmjs.org/
 npm publish --registry https://registry.npmjs.org/
 ```
