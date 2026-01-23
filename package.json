@@ -1,6 +1,6 @@
 {
     "name": "create-kmp-library",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "description": "Scaffold a Kotlin Multiplatform library project (KMP/CMP) with runnable Android & iOS apps.",
     "bin": {
         "create-kmp-library": "out.js"
