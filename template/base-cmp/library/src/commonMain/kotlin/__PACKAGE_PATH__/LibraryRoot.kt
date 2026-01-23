@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import __GROUP_ID__.library.generated.resources.Res
+import __GROUP_ID__.library.generated.resources.library_title
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
