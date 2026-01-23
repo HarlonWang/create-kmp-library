@@ -15,3 +15,10 @@ npm create kmp-library
 
 - Node.js >= 18
 - Xcode >= 16（仅 Apple Silicon）
+
+## npm 发布
+
+```sh
+npm login --registry https://registry.npmjs.org/
+npm publish --registry https://registry.npmjs.org/
+```
